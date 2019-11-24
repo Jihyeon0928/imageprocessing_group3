@@ -1,0 +1,25 @@
+import pyzbar.pyzbar as pyzbar
+import cv2
+
+img = cv2.imread("C:/Image/barcode3.jpg")
+img = cv2.resize(img,(700,700))
+
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+cv2.imshow("gray", gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+decoded = pyzbar.decode(gray)
+
+decoded
+
+for d in decoded:
+    print(d.data.decode('utf-8'))    #바코드 숫자 인식
+    
+
+    cv2.rectangle(img, (d.rect[0],d.rect[1]),(d.rect[0]+d.rect[2],d.rect[1]+d.rect[3]),(0,255,0),3)
+    
+cv2.imshow("barcode",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
